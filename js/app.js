@@ -36,18 +36,19 @@ const cardClicked = (e) => {
     //const indexdb = db.findIndex(guitar => guitar.id === Number(idGuitar))
     //Si la guitarra ya existe incrementamos cantidad en 1
     //En caso de que no agregamos una nueva
-    if (carrito.some((g) => g.id === idGuitar)) {
+    if (!carrito.some((g) => g.id === idGuitar)) {
       carrito.push({
         ...db[idGuitar - 1],
         cantidad: 1,
       });
+    } else {
+      console.log(idGUitar);
+      const idCarrito = carrito.findIndex((g) => g.id === idGuitar);
+      const currentGuitar = carrito[idCarrito];
+      currentGuitar.cantidad++;
     }
-  } else {
-    const idCarrito = carrito.findIndex((g) => g.id === idGuitar);
-    const currentGuitar = carrito[idCarrito];
-    currentGuitar.cantidad++;
+    console.log(carrito);
   }
 };
-console.log(carrito);
 
 divContainer.addEventListener("click", cardClicked);
