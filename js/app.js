@@ -107,6 +107,7 @@ const carritcoClicked = (e) => {
       carrito = [];
     }
     createCart(carrito);
+    saveLocalStorage();
   }
 };
 
@@ -127,10 +128,18 @@ const cardClicked = (e) => {
       }
     }
     createCart(carrito);
+    saveLocalStorage();
   }
 };
 
-createCart(carrito);
+const saveLocalStorage = () => {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    createCart(carrito);
+});
 
 divContainer.addEventListener("click", cardClicked);
 carritoContainer.addEventListener("click", carritcoClicked);
